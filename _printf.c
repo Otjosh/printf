@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _printf - Format and print data according to a format.
+ * _printf - Custom implementation of printf function.
  * @format: The format string.
  *
  * Return: The number of characters printed.
@@ -26,12 +26,14 @@ int _printf(const char *format, ...)
 			if (format[i] == 'c')
 			{
 				char c = va_arg(args, int);
+
 				write(1, &c, 1);
 				char_count++;
 			}
 			else if (format[i] == 's')
 			{
 				char *str = va_arg(args, char *);
+
 				if (str == NULL)
 				{
 					str = "(null)";
