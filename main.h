@@ -10,8 +10,8 @@
  */
 typedef struct format
 {
-	char *spec;
-	int (*f)(va_list);
+    char *spec;
+    int (*f)(va_list);
 } format_t;
 
 int _printf(const char *format, ...);
@@ -30,5 +30,8 @@ int handle_pointer(va_list args);
 int handle_custom_string(va_list args);
 int handle_reverse_string(va_list args);
 int handle_rot13_string(va_list args);
+
+/* Add the function declarations for handle_numbers_and_d_i.c here */
+int handle_d_i(va_list args);
 
 #endif /* MAIN_H */
