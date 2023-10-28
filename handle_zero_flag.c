@@ -1,36 +1,31 @@
-#include <stdio.h>
+#include "main.h"
 #include <stdarg.h>
+#include <unistd.h>
 
 /**
- * handle_zero_flag - Handles the 0 flag for non-custom conversion specifiers.
- * @args: The va_list containing the arguments.
- * @value: The integer value.
- * @width: The specified field width.
+ * handle_zero_flag - Handles the '0' format specifier
+ * @args: The va_list containing the arguments
  *
  * Return: The number of characters printed.
  */
-
-int handle_zero_flag(va_list args, int value, int width)
+int handle_zero_flag(va_list args)
 {
-	int char_count = 0;
+    int char_count = 0;
+    char c;
 
-	int num_width = 0;
-	int temp = value;
+    while ((c = va_arg(args, int)))
+    {
+        if (c == '%')
+        {
+            write(1, "0", 1);
+            char_count++;
+        }
+        else
+        {
+            write(1, &c, 1);
+            char_count++;
+        }
+    }
 
-	while (temp != 0)
-	{
-		temp /= 10;
-		num_width++;
-	}
-
-	while (num_width < width)
-	{
-		putchar('0');
-		char_count++;
-		num_width++;
-	}
-
-	printf("%d", value);
-	char_count += num_width;
-	return (char_count);
+    return char_count;
 }

@@ -1,30 +1,31 @@
 #include "main.h"
-#include <stdio.h>
-#include <stddef.h>
+#include <stdarg.h>
+#include <unistd.h>
 
 /**
- * handle_reversed - Handles the %r specifier
- * @args: The va_list containing the string
+ * handle_reversed - Handles the 'r' format specifier
+ * @args: The va_list containing the arguments
+ * @unused: An unused parameter required by the function pointer
  *
- * Return: Number of characters printed
+ * Return: The number of characters printed.
  */
-int handle_reversed(va_list args)
+int handle_reversed(va_list args, __attribute__((unused)) void *unused)
 {
-	char *str = va_arg(args, char *);
-	int char_count = 0;
+    int len, i;
+    char *str = va_arg(args, char *);
+    int char_count = 0;
 
-	if (str == NULL)
-		str = "(null)";
+    if (str == NULL)
+        str = "(null)";
 
-	int len = 0;
-	while (str[len] != '\0')
-		len++;
+    len = 0;
+    while (str[len])
+        len++;
 
-	for (int i = len - 1; i >= 0; i--)
-	{
-		char_count++;
-		putchar(str[i]);
-	}
+    for (i = len - 1; i >= 0; i--)
+    {
+        char_count += write(1, &str[i], 1);
+    }
 
-	return char_count;
+    return char_count;
 }

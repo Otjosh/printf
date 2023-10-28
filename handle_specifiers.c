@@ -8,33 +8,33 @@
  *
  * Return: The number of characters printed
  */
-
 int handle_specifier(char specifier, va_list args)
 {
-	switch (specifier)
-	{
-		case 'c':
-		char c = va_arg(args, int);
+    switch (specifier)
+    {
+    case 'c':
+        {
+            char c = va_arg(args, int);
+            putchar(c);
+            return 1;
+        }
 
-		putchar(c);
-		return (1);
+    case 's':
+        {
+            char *str_arg = va_arg(args, char *);
+            while (*str_arg)
+            {
+                putchar(*str_arg);
+                str_arg++;
+            }
+            return 0;
+        }
 
-	case 's':
-		char *str_arg = va_arg(args, char *);
+    case '%':
+        putchar('%');
+        return 1;
 
-		while (*str_arg)
-		{
-			putchar(*str_arg);
-			str_arg++;
-		}
-
-		return (0);
-
-	case '%':
-		putchar('%');
-		return (1);
-		default:
-
-		return (0);
-	}
+    default:
+        return 0;
+    }
 }
