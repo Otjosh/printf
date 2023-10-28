@@ -9,7 +9,7 @@
  * Return: The number of characters printed.
  */
 
-int handle_number(char specifier, va_list args)
+int handle_number(va_list args)
 {
 	int value = va_arg(args, int);
 

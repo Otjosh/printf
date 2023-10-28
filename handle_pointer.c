@@ -1,31 +1,32 @@
-#include <stdio.h>
-#include <stdarg.h>
+#include "main.h"
+#include <stdint.h>
+#include <unistd.h>
 
 /**
- * handle_pointer - Handles the p specifier (prints the address of a pointer).
- * @args: The va_list containing the arguments.
+ * handle_pointer - Handles the conversion specifier 'p' for pointers.
+ * @args: The va_list that contains the pointer.
  *
  * Return: The number of characters printed.
  */
-
 int handle_pointer(va_list args)
 {
-	void *ptr = va_arg(args, void *);
-	int char_count = 0;
+    uintptr_t ptr = (uintptr_t)va_arg(args, void *);
+    int char_count = 0;
+    int i;
 
-	putchar('0');
-	putchar('x');
+    for (i = sizeof(void *) * 2 - 1; i >= 0; i--)
+    {
+        int digit = (ptr >> (i * 4)) & 0xF;
+        char digit_char;
 
-	for (int i = sizeof(void *) * 2 - 1; i >= 0; i--)
-	{
-		int digit = ((uintptr_t)ptr >> (i * 4)) & 0xF;
+        if (digit < 10)
+            digit_char = digit + '0';
+        else
+            digit_char = digit - 10 + 'a';
 
-		if (digit < 10)
-		putchar('0' + digit);
-	else
-		putchar('a' + digit - 10);
-	char_count++;
-	}
+        write(1, &digit_char, 1);
+        char_count++;
+    }
 
-	return (char_count);
+    return char_count;
 }

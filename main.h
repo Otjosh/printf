@@ -21,5 +21,14 @@ int _putchar(char c);
 int print_char(va_list args);
 int print_string(va_list args);
 int print_percent(va_list args);
+int handle_number(va_list args);
+int handle_binary(va_list args);
+int handle_unsigned(va_list args);
+int handle_octal(va_list args);
+int handle_hex(va_list args);
+int handle_pointer(va_list args);
+int handle_custom_string(va_list args);
+int handle_reverse_string(va_list args);
+int handle_rot13_string(va_list args);
 
 #endif /* MAIN_H */
